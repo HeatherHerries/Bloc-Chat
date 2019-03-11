@@ -38,7 +38,7 @@ class MessageList extends Component {
   createMessage(e) {
     e.preventDefault();
     if (this.props.activeRoomId === '') {
-      window.alert("Please Choose a Chat Room First =)")
+      window.alert("Please Choose a Chat Room First")
     }
     else {
       this.messagesRef.push({
