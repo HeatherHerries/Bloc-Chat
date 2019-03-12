@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
@@ -43,21 +44,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Bloc Chat</h1>
-        </header>
-        <div className="logIn">
-          <User firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user} />
-        </div>
-        <RoomList firebase={firebase}
-          updateRoom={this.updateRoom.bind(this)}
-          activeRoomId={this.state.activeRoomId}
-          activeRoom={this.state.activeRoom} />
-
+        <nav className="room-navigation">
+          <header className="App-header">
+            <h1>Bloc Chat</h1>
+          </header>
+          <div className="logIn">
+            <User firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user} />
+          </div>
+          <RoomList firebase={firebase}
+            updateRoom={this.updateRoom.bind(this)}
+            activeRoomId={this.state.activeRoomId}
+            activeRoom={this.state.activeRoom} />
+        </nav>
         <section className="message-list">
           <MessageList firebase={firebase}
             activeRoom={this.state.activeRoom}
-            activeRoomId={this.state.activeRoomId} />
+            activeRoomId={this.state.activeRoomId}
+            user = {this.state.user} />
         </section>
 
       </div>
