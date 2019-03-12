@@ -40,6 +40,25 @@
   .room-number:hover{
     text-decoration: underline;
   }
+
+  .delete-room {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .deleteRoomButton:hover {
+    box-shadow: 2px 2px #696969;
+    color: #DC143C;
+    font-weight: bold;
+  }
   
+  .rename-room {
+    text-align: center;
+    margin-top: 15px;
+  }
   
-  
+  .renameRoomButton:hover {
+    box-shadow: 2px 2px #696969;
+    color: #3364ff;
+    font-weight: bold;
+  }

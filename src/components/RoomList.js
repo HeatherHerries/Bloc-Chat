@@ -21,6 +21,15 @@ class RoomList extends Component {
       room.key = snapshot.key;
       this.setState({rooms: this.state.rooms.concat(room )});
     });
+
+    this.roomsRef.on('child_changed', snapshot => {
+      const room = snapshot.val();
+      room.key = snapshot.key;
+      let oldRoomList = this.state.rooms;
+      let index = oldRoomList.findIndex(rooms => rooms.key === room.key)
+      oldRoomList[index]=room;
+      this.setState({rooms: oldRoomList})
+    });
   }
 
   handleChange(e) {
@@ -36,6 +45,24 @@ class RoomList extends Component {
           name: newRoomName
       })
       this.setState({value: ''});
+  }
+
+  renameRoom(e) {
+    e.preventDefault();
+    let updatedName = {key: this.props.activeRoomId,
+      name: window.prompt("Please enter a new room name")};
+    this.roomsRef.child(this.props.activeRoomId).update({name: updatedName.name});
+    this.props.updateRoom(updatedName);
+
+  }
+
+  deleteRoom(e) {
+    e.preventDefault();
+    const updatedRooms = this.state.rooms.filter(room => room.key !== this.props.activeRoomId)
+    this.props.updateRoom('');
+    this.setState({rooms: updatedRooms})
+    this.roomsRef.child(this.props.activeRoomId).remove()
+
   }
 
 
@@ -62,6 +89,12 @@ class RoomList extends Component {
                 </label>
             </div>
         </form>
+        <div className="rename-room">
+          <button className="renameRoomButton" onClick={(e) => this.renameRoom(e)}>Rename Current Room</button>
+        </div>
+        <div className="delete-room">
+          <button className="deleteRoomButton" onClick={(e) => this.deleteRoom(e)}>Delete Current Room</button>
+        </div>
       </div>
     );
   }
